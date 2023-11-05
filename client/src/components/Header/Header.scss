@@ -1,0 +1,61 @@
+// Header.scss
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+
+  .logo {
+    img{
+      width: 70%;
+      height: 9vh;
+    }
+  }
+
+  .search-icon {
+    cursor: pointer;
+    margin-right: 20px;
+    position: relative;
+    right: 30px;
+    top: 10px;
+  }
+
+  .search-input {
+    right: 19%;
+    border: 1px solid #6A35B8;
+    border-bottom: 1px solid #6A35B8;
+    outline: none;
+    padding: 5px 10px;
+    transition: all 0.5s ease-in-out;
+    border-radius: 100px;
+    &:focus {
+      border-bottom-color: #6A35B8;
+    }
+  }
+
+  nav {
+    ul {
+      list-style: none;
+      display: flex;
+      margin-bottom: 0;
+      li {
+        margin-left: 20px;
+        color: #6A35B8;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.search-icon.active + .search-input {
+  opacity: 1;
+  width: 200px; // Example width, adjust as needed
+  padding: 5px 10px;
+}

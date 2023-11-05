@@ -1,0 +1,23 @@
+// SearchInput.scss
+
+.search-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-input {
+    transition: width 0.5s ease-in-out;
+    width: 150px; // default width
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+  
+    &:focus,
+    &.active {
+      width: 300px; // expanded width
+      border-color: #007bff;
+    }
+  }
+  
