@@ -1,0 +1,11 @@
+.product-listing {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 20px; /* Adjust the gap between grid items */
+}
