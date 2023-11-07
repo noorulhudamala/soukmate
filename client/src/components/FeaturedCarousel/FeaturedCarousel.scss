@@ -1,0 +1,35 @@
+// FeaturedCarousel.scss
+
+.featured-carousel {
+  margin: 8% 11%;
+  h2 {
+    color: #6a35b8 !important;
+    font-weight: bold;
+  }
+}
+
+.carousel .slick-arrow {
+  color: #070606 !important;
+  border: none;
+  outline: none;
+}
+.slick-prev {
+  left: 3% !important;
+  z-index: 1;
+  margin-left: -100px;
+  img {
+    width: 160%;
+  }
+}
+.slick-next {
+  right: 3% !important;
+  z-index: 1;
+  margin-right: -100px;
+  img {
+    width: 160%;
+  }
+}
+
+.slick-dots li.slick-active button:before {
+  color: #6a35b8 !important;
+}

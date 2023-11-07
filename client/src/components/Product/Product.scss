@@ -14,14 +14,45 @@
 
 .product-item {
   border: 1px solid #ccc;
-  padding: 20px;
   text-align: center;
   border-radius: 15px;
   box-shadow: 1px 1px #888888;
-  height: 300px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-bottom: 20px;
+}
+.product-description {
+  text-align: left;
+  padding: 20px;
+  h5 {
+    font-weight: bold;
+    color: #6a35b8 !important;
+    font-size: 16px;
+  }
+  span {
+    font-size: 14px;
+  }
+}
+.product-action {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+  button {
+    padding: 5px 20px;
+    font-size: 1rem;
+    background-color: #6a35b8;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken(#6a35b8, 10%);
+    }
+  }
 }
 
 .product-item h3 {

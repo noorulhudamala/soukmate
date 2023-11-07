@@ -1,3 +1,9 @@
+.heading {
+  color: #6a35b8 !important;
+  font-weight: bold;
+  margin: 2% 11%;
+}
+
 .product-listing {
   display: flex;
   flex-wrap: wrap;
@@ -8,4 +14,18 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 columns */
   gap: 20px; /* Adjust the gap between grid items */
+}
+
+.arrow {
+  width: 10%;
+}
+
+.product-pagination {
+  width: 20%;
+  margin: 50px;
+  display: inline-table;
+  .prev, .next{
+    margin-left: 5%;
+    margin-right: 5%;
+  }
 }

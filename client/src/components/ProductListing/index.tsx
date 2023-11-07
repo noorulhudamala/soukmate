@@ -5,6 +5,8 @@ import { getProducts } from "../../api/productApi";
 import { IProduct } from "../../interfaces";
 import Product from "../Product";
 import { Row, Col } from "react-bootstrap";
+import arrowNext from "../../assets/images/arrow_next.svg";
+import arrowPrev from "../../assets/images/arrow_prev.svg";
 import "./ProductListing.scss";
 
 const ProductListing: React.FC = () => {
@@ -42,11 +44,11 @@ const ProductListing: React.FC = () => {
   }, [currentPage]);
   return (
     <div>
-      {/* Render the list of products */}
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <>
+          <>
+            <h2 className="heading">All Products</h2>
           <Row className="product-grid d-flex justify-content-center">
             {products.map((product: IProduct) => (
               <Col bsPrefix="col-3">
@@ -54,27 +56,33 @@ const ProductListing: React.FC = () => {
               </Col>
             ))}
           </Row>
-          <div>
-            <button
-              onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
-              disabled={currentPage === 1}
+          <div className="product-pagination">
+            <span
+              className="prev"
+                onClick={() => setCurrentPage((prevPage) => {
+                  if (prevPage > 1)
+                    return prevPage - 1
+                  return prevPage
+                })}
             >
-              Previous
-            </button>
+              <img className="arrow" src={arrowPrev} alt="arrow previous" />
+            </span>
             <span>
               Page {currentPage} of {totalPages}
             </span>
-            <button
-              onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
-              disabled={currentPage === totalPages}
+            <span
+              className="next"
+                onClick={() => setCurrentPage((prevPage) => {
+                  if (prevPage < totalPages)
+                  return prevPage + 1
+                return prevPage
+              })}
             >
-              Next
-            </button>
+              <img className="arrow" src={arrowNext} alt="arrow next" />
+            </span>
           </div>
         </>
       )}
-
-      {/* Pagination controls */}
     </div>
   );
 };
