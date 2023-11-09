@@ -27,7 +27,7 @@ const FeaturedCarousel: React.FC = () => {
           features: product?.features,
           price: product?.price,
           description: product?.product_details,
-          thumbnail: product?.images_list?.split(";")?.[0],
+          thumbnail: product?.images_list?.split("~")?.[0],
         }));
 
         setProducts(products);
