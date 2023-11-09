@@ -7,4 +7,8 @@ body {
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, p {
   color: black !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+a {
+  text-decoration: none !important;
 }
