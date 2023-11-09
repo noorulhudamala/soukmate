@@ -13,7 +13,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
         to={`/product/${product.id}`}
       >
         <div className="img-container">
-          <img src={`${product?.thumbnail}.jpg`} alt={product.title} />
+          <img src={`${product?.thumbnail}`} alt={product.title} />
         </div>
         <div className="product-description">
           <h5>{product.title}</h5>

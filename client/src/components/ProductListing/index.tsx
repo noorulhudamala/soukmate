@@ -28,9 +28,10 @@ const ProductListing: React.FC = () => {
           features: product?.features,
           price: product?.price,
           description: product?.product_details,
-          thumbnail: product?.images_list?.split(";")?.[0],
+          thumbnail: product?.images_list?.split("~")?.[0],
         }));
 
+        console.log("====", products)
         setProducts(products);
         setTotalPages(response.totalPages);
         setLoading(false);

@@ -6,27 +6,33 @@ const sequelize = require("../config/sequelize"); // Import your Sequelize insta
 const Product = sequelize.define("Product", {
   title: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   price: {
     type: DataTypes.DECIMAL(10, 2),
-    allowNull: false,
   },
   brand: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
-  product_details: {
+  description: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   images_list: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
-  features: {
+  availability: {
     type: DataTypes.STRING,
-    allowNull: false,
+  },
+  color: {
+    type: DataTypes.STRING,
+  },
+  category: {
+    type: DataTypes.STRING,
+  },
+  average_rating: {
+    type: DataTypes.DOUBLE,
+  },
+  reviews_count: {
+    type: DataTypes.INTEGER,
   },
 });
 
