@@ -1,5 +1,3 @@
-// controllers/productController.js
-
 const Product  = require('../models/product'); // Import your Product model
 
 exports.createProduct = async (req, res) => {

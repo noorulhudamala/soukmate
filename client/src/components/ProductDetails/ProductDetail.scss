@@ -1,16 +1,19 @@
 
+.product-container{
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+}
 .product-detail-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 20px;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  align-items: flex-start;
+  justify-content: center;
 
   .main-image-container {
     max-width: 500px; // Adjust based on your layout
-    width: 100%;
+    width: 40%;
     overflow: hidden;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -50,17 +53,35 @@
     h1 {
       font-size: 24px;
       margin-bottom: 10px;
+      font-weight: bolder;
     }
     p {
       font-size: 16px;
       color: #666;
+      margin-bottom: 0px;
     }
   }
 }
+.product-description-container{
+  margin: 30px 100px;
+  text-align: left;
+  h4 {
+    font-weight: bolder;
+  }
+}
+
 
 @media (min-width: 768px) {
   .product-detail-container {
     flex-direction: row;
+    .description-container {
+      margin-top: 5px;
+    }
+    .product-subHeading {
+      font-size: 16px;
+      font-weight: bolder;
+      margin-right: 20px;
+    }
     .main-image-container {
       max-width: 65%;
     }
@@ -70,7 +91,62 @@
       margin-right: 20px;
     }
     .product-info {
-      max-width: 20%;
+      max-width: 35%;
+      text-align: left;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 560px;
+      .star-rating {
+        float: right;
+      }
+      
+    }
+    .sizes-container{
+      display: flex;
+      .size {
+        border: 1px solid black;
+        padding: 5px 15px;
+        margin: 5px 10px;
+        width: 55px;
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+        &:hover {
+          background-color: #000;
+          color: #fff;
+        }
+      }
+      .selected{
+        background-color: #000;
+        color: #fff;
+      }
+    }
+    .action-container{
+      width : 100%;
+      display: flex;
+      justify-content: center;
+      .fav-btn{
+        background-color: #fff;
+        border: 2px solid #000;
+      }
+      button {
+        background-color: #000;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        padding: 7px;
+        font-size: 16px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+          width: 20px;
+          margin: 0px 10px;
+        }
+      }
     }
   }
 }

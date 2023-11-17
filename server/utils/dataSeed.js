@@ -22,9 +22,6 @@ const seedProducts = async () => {
     try {
       // Synchronize the database and recreate the products table
       await sequelize.sync({ force: true });
-  
-     
-      console.log("=====", data)
       // Insert the product data into the database
         await Product.bulkCreate(data)
   

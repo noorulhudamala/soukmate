@@ -47,15 +47,15 @@
   button {
     padding: 5px 20px;
     font-size: 1rem;
-    background-color: #6a35b8;
+    background-color: #000;
     border: none;
     border-radius: 5px;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
-
+    font-weight: 700;
     &:hover {
-      background-color: darken(#6a35b8, 10%);
+      background-color: darken(#000, 10%);
     }
   }
 }

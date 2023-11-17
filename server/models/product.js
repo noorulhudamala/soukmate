@@ -1,7 +1,9 @@
 // models/product.js
 
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/sequelize"); // Import your Sequelize instance
+const sequelize = require("../config/sequelize"); 
+const Size = require('./size');
+const ProductInventory = require('./productInventory');
 
 const Product = sequelize.define("Product", {
   title: {
@@ -36,4 +38,8 @@ const Product = sequelize.define("Product", {
   },
 });
 
+Product.belongsToMany(Size, { through: ProductInventory });
+Size.belongsToMany(Product, { through: ProductInventory });
+ProductInventory.belongsTo(Product);
+ProductInventory.belongsTo(Size);
 module.exports = Product;

@@ -6,8 +6,8 @@ import logo from "../../assets/images/logo.png";
 import SearchInput from "../SearchInput";
 import { useNavigate } from "react-router-dom";
 import account from "../../assets/images/account.svg";
-import heartOutline from "../../assets/images/heart_outline.svg";
-import Cart from "../Cart";
+import Favourites from "../Shared/Favourites";
+import Cart from "../Shared/Cart";
 const Header: React.FC = () => {
   const navigate = useNavigate();
   return (
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
               <img className="px-2" src={account} alt="account-icon" />
             </li>
             <li className="d-flex">
-              <img className="px-2" src={heartOutline} alt="account-icon" />
+              <Favourites outline="#6A35B8"/>
             </li>
             <li>
               <Cart fill="#6A35B8"/>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { IProduct } from "../../interfaces";
+import StarRating from "../StarRating";
 import "./Product.scss";
 
 type ProductProps = {
@@ -18,6 +19,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
         <div className="product-description">
           <h5>{product.title}</h5>
           <span>${product.price}</span>
+          <StarRating rating={product.average_rating} starSize={20} reviewCount={product.reviews_count} />
         </div>
       </Link>
       <div className="product-action">
