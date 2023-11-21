@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { IProduct } from "../../interfaces";
-import StarRating from "../StarRating";
+import StarRating from "../Shared/StarRating";
 import "./Product.scss";
 
 type ProductProps = {

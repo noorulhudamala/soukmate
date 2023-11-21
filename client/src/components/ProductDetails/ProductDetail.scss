@@ -43,7 +43,7 @@
       cursor: pointer;
       transition: border 0.3s ease;
       &:hover, &.selected {
-        border: 2px solid #007bff; // Highlight color when selected or hovered
+        border: 2px solid #000; // Highlight color when selected or hovered
       }
     }
   }

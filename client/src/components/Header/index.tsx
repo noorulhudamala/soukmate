@@ -8,8 +8,12 @@ import { useNavigate } from "react-router-dom";
 import account from "../../assets/images/account.svg";
 import Favourites from "../Shared/Favourites";
 import Cart from "../Shared/Cart";
+import { useStore } from "../../store";
+import { SHOW_CART } from "../../store/actions";
 const Header: React.FC = () => {
   const navigate = useNavigate();
+  const { state, dispatch } = useStore();
+  const { showCart, cartItems } = state;
   return (
     <header className="sticky-header">
       <div className="logo" onClick={() => navigate("/")}>
@@ -25,8 +29,9 @@ const Header: React.FC = () => {
             <li className="d-flex">
               <Favourites outline="#6A35B8"/>
             </li>
-            <li>
-              <Cart fill="#6A35B8"/>
+            <li onClick={() => dispatch({ type: SHOW_CART, payload: !showCart })}>
+              <Cart fill="#6A35B8" />
+              {!!cartItems?.length && <span className={'cart-count'}>{cartItems?.length}</span>}
             </li>
           </ul>
         </nav>

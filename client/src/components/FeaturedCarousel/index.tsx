@@ -28,6 +28,11 @@ const FeaturedCarousel: React.FC = () => {
           price: product?.price,
           description: product?.product_details,
           thumbnail: product?.images_list?.split("~")?.[0],
+          availability: product?.availability,
+          color: product?.color,
+          category: product?.category,
+          average_rating: product?.average_rating,
+          reviews_count: product?.reviews_count,
         }));
 
         setProducts(products);
@@ -69,7 +74,11 @@ const FeaturedCarousel: React.FC = () => {
 function SamplePrevArrow(props: any) {
   const { className, style, onClick } = props;
   return (
-    <div className={className} style={{ ...style, display: "block" }} onClick={onClick}>
+    <div
+      className={className}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+    >
       <img className="slick-arrow" src={arrowPrev} alt="arrow_prev" />
     </div>
   );
@@ -78,7 +87,11 @@ function SamplePrevArrow(props: any) {
 function SampleNextArrow(props: any) {
   const { className, style, onClick } = props;
   return (
-    <div className={className} style={{ ...style, display: "block" }} onClick={onClick}>
+    <div
+      className={className}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+    >
       <img className="slick-arrow" src={arrowNext} alt="arrow_next" />
     </div>
   );
