@@ -1,0 +1,21 @@
+.Review {
+    .top_container {
+        padding-bottom: 30px;
+        display: flex;
+        justify-content: space-between;
+        .rating_container{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 13.5%;
+            h5 {
+                font-size: 18px;
+                font-weight: 600;
+            }
+        }
+        button {
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+    }
+}

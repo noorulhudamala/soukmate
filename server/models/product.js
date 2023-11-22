@@ -4,6 +4,7 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../config/sequelize"); 
 const Size = require('./size');
 const ProductInventory = require('./productInventory');
+const Review = require('./review');
 
 const Product = sequelize.define("Product", {
   title: {
@@ -42,4 +43,7 @@ Product.belongsToMany(Size, { through: ProductInventory });
 Size.belongsToMany(Product, { through: ProductInventory });
 ProductInventory.belongsTo(Product);
 ProductInventory.belongsTo(Size);
+Product.hasMany(Review);
+Review.belongsTo(Product);
+
 module.exports = Product;

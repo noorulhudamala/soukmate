@@ -1,0 +1,31 @@
+.star-rating {
+  display: flex;
+  align-items: center;
+  h5 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .stars-outer {
+    display: inline-block;
+    position: relative;
+    unicode-bidi: bidi-override;
+    margin-right: 6px;
+    span {
+      position: relative;
+      color: #000; 
+    }
+  }
+
+  .stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0; 
+
+    span {
+      color: #000; 
+    }
+  }
+}

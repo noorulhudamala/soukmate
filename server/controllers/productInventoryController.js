@@ -1,5 +1,6 @@
 const ProductInventory = require('../models/productInventory');
 const Size = require('../models/size');
+const Review = require('../models/review');
 const Product = require('../models/product');
 
 exports.getProductInventory = async (req, res) => {
@@ -14,6 +15,8 @@ exports.getProductInventory = async (req, res) => {
           attributes: ['quantity'], // Include quantity from ProductInventory
         },
         attributes: ['sizeLabel', 'id'] // Attributes of Size to include
+      }, {
+        model: Review
       }]
     });
 
