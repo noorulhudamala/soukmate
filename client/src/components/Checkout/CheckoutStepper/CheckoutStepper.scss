@@ -1,0 +1,19 @@
+.CheckoutStepper {
+    display: flex;
+    justify-content: center;
+    margin: 20px 20px 40px;
+    .MuiStack-root {
+        width: 50%;
+    }
+    .Mui-completed {
+        svg{
+        color: #6A35B8 !important;
+        }
+        span{
+            font-weight: bold;
+        }
+    }
+    .Mui-active circle {
+        color: #6A35B8 !important;
+    }
+}

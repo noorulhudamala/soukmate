@@ -1,0 +1,20 @@
+.zoomable-image-container {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    cursor: zoom-in;
+    height: 550px;
+  
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  
+    &.zoomed {
+      background-size: 200%; // The zoom level
+      cursor: zoom-out;
+    }
+  }
+  
