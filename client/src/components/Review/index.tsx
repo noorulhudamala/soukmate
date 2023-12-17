@@ -22,7 +22,6 @@ const Review = ({ rating, reviews }: ReviewProps) => {
       <div className="top_container">
         <div className="rating_container">
           <StarRating rating={rating} starSize={25} />
-          <h5>{rating}</h5>
         </div>
         <div>
           <button onClick={onWriteReviewClickHandler}>Write Review</button>

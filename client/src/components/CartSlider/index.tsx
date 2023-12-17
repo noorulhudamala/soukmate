@@ -53,10 +53,6 @@ const CartSlider = () => {
           <button className="cart-cross" onClick={onHideSlider} />
         </div>
         <div>
-          {cartItems.length === 0 ? (
-            <div>Cart is empty</div>
-          ) : (
-            <>
               <div className="main-heading">
                 <h4>YOUR BAG</h4>
                 <h6>
@@ -64,6 +60,10 @@ const CartSlider = () => {
                   them yours.
                 </h6>
               </div>
+          {cartItems.length === 0 ? (
+            <div>Cart is empty</div>
+          ) : (
+            <>
               <div className="cart-items">
                 {cartItems.map((item: ICart) => (
                   <div key={item.productId} className="d-flex">

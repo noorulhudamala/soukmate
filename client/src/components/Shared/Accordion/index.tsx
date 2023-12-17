@@ -35,7 +35,7 @@ const Accordion = ({ rating, reviews, description, color }: AccordionProps) => {
           ))}
         </ul>
       </AccordionItem>
-      <AccordionItem title="Reviews">
+      <AccordionItem title={`Reviews (${reviews?.length})`}>
         <Review rating={rating} reviews={reviews} />
       </AccordionItem>
     </div>

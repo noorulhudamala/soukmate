@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { getProductInventory } from "../../api/productInventoryApi";
 import { IProduct, IImage, ICart, IProductSize } from "../../interfaces";
 import { useStore } from "../../store";
-import { ADD_TO_CART, SHOW_CART } from "../../store/actions";
+import { ADD_TO_CART, SELECTED_PRODUCT_ID, SHOW_CART } from "../../store/actions";
 import Accordion from "../Shared/Accordion";
 import Cart from "../Shared/Cart";
 import Favourites from "../Shared/Favourites";
@@ -35,7 +35,7 @@ const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { dispatch, state } = useStore();
   const cartItems = state.cartItems;
-
+  
   useEffect(() => {
     async function fetchProduct() {
       if (id) {
@@ -80,6 +80,7 @@ const ProductDetail: React.FC = () => {
           price: product?.price,
           thumbnail: product?.thumbnail,
         });
+        dispatch({ type: SELECTED_PRODUCT_ID, payload: id });
       }
     }
     fetchProduct();
@@ -166,10 +167,8 @@ const ProductDetail: React.FC = () => {
                     {size?.sizeLabel}
                   </div>
                 ))}
-              </div>
-            </div>
-            <div>
               <div className="error">{error}</div>
+              </div>
             </div>
           </div>
           <div className="row action-container">
