@@ -1,0 +1,33 @@
+.address-details {
+    form {
+      width: 90%;
+    }
+    button {
+      background-color: black;
+      text-transform: none;
+      font-weight: bold;
+      &:hover {
+        background-color: #6a35b8;
+      }
+    }
+    label {
+      font-size: 16px;
+    }
+    input {
+      width: 100%;
+      margin-bottom: 0px !important;
+    }
+    &:focus-visible {
+        outline: none;
+    }
+    .underline {
+      width: 20%;
+      color: #6a35b8;
+      background-color: #6a35b8;
+      height: 3px;
+      opacity: 1;
+      border: none;
+      border-radius: 10%;
+      margin: 5px;
+    }
+  }
