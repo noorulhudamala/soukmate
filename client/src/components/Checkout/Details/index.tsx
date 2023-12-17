@@ -2,34 +2,34 @@ import React, { ChangeEvent, useState } from "react";
 import * as Yup from "yup";
 import "./Details.scss";
 import FormControl from "@mui/material/FormControl";
-
-import Divider from "@mui/material/Divider";
 import OrderSummary from "../OrderSummary";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { IOrderPayment, RadioOptions } from "../../../interfaces";
+import { ICustomer, IOrderPayment, IRadioOptions } from "../../../interfaces";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../../Shared/Input";
 import RadioInput from "../../Shared/RadioInput";
-import { sendOtp, verifyOtp } from "../../../api/customerApi";
+import { sendOtp, updateCustomer, verifyOtp } from "../../../api/customerApi";
 import { useStore } from "../../../store";
 import { IS_USER_VERIFIED } from "../../../store/actions";
+import Loader from "../../Shared/Loader";
 type DetailsProps = {
   setOrderPayment: Function;
   orderPayment: IOrderPayment;
 };
 const validationSchema = Yup.object().shape({
-  first_name: Yup.string().required("First Name is required"),
-  last_name: Yup.string().required("Last Name is required"),
+  firstName: Yup.string().required("First Name is required"),
+  lastName: Yup.string().required("Last Name is required"),
   phone: Yup.string().required("Phone is required"),
-  street_address: Yup.string().required("Street Address is required"),
+  streetAddress: Yup.string().required("Street Address is required"),
   city: Yup.string().required("City is required"),
   state: Yup.string().required("State is required"),
-  zip_code: Yup.string().required("Zip Code is required"),
-  payment_method: Yup.string().required("Please select one"),
+  zipCode: Yup.string().required("Zip Code is required"),
+  country: Yup.string().required("Country is required"),
+  paymentMethod: Yup.string().required("Please select one"),
 });
-const paymentMethodOptions: RadioOptions[] = [
+const paymentMethodOptions: IRadioOptions[] = [
   {
     label: "Visa",
     value: "card",
@@ -58,7 +58,7 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
   } = useForm<any>({
     resolver: yupResolver(validationSchema),
     reValidateMode: "onChange",
-    mode: "onBlur",
+    mode: "onChange",
   });
   const {
     handleSubmit: onEmailVerify,
@@ -68,7 +68,7 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
   } = useForm<any>({
     resolver: yupResolver(emailValidationSchema),
     reValidateMode: "onChange",
-    mode: "onBlur",
+    mode: "onChange",
   });
   const {
     handleSubmit: onCodeVerify,
@@ -77,25 +77,31 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
     setValue: setCodeValue
   } = useForm<any>({
     resolver: yupResolver(codeValidationSchema),
-    mode: "onBlur",
+    mode: "onChange",
   });
 
   const [showEmail, setShowEmail] = useState<boolean>(true);
   const [showCode, setShowCode] = useState<boolean>(false);
+  const [isShowLoader, setIsShowLoader] = useState<boolean>(false);
   const [code, setCode] = useState<string>("");
   const [disableFields, setDisableFields] = useState<boolean>(true);
   const { dispatch, state } = useStore();
   const isUserVerified = state.isUserVerified;
 
   const onHandleEmailSubmit = async (data: string) => {
+    setIsShowLoader(true)
+    await sendOtp(orderPayment?.email);
+    setIsShowLoader(false)
     setShowEmail(false)
     setShowCode(true)
-    await sendOtp(orderPayment?.email);
   };
   const onHandleCodeSubmit = async(data: string) => {
     setShowCode(false)
     setDisableFields(false)
-    await verifyOtp(orderPayment?.email, code);
+    const custData = await verifyOtp(orderPayment?.email, code);
+    if (custData) {
+      setOrderPayment(custData?.customer)
+    }
     dispatch({ type: IS_USER_VERIFIED, payload: true });
   };
 
@@ -111,24 +117,44 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
         setOrderPayment((prevState:IOrderPayment)=> ({...prevState, email: value}))
         setEmailValue(name, value)
         break;
-      case "first_name": 
-      case "last_name": 
-      case "street_address": 
+      case "firstName": 
+      case "lastName": 
+      case "streetAddress": 
       case "city": 
       case "state": 
-      case "zip_code":
+      case "zipCode":
+      case "country":
+      case "phone":
+        setOrderPayment((prevState:IOrderPayment)=> ({...prevState, [name]: value}))
         setValue(name, value);
         break;
       default:
         break;
     }
   }
-  const onSubmit = (data: any) => {
+  const onSubmit = async(data: any) => {
     // Handle form submission
     console.log(data);
+    const custObj = Object.entries(data);
+    for (let i = 0; i < custObj.length; i++){
+      setValue(custObj[i][0], custObj[i][1]);
+    }
+    const customerObj: ICustomer = {
+      firstName: orderPayment?.firstName,
+      lastName: orderPayment?.lastName,
+      email: orderPayment?.email,
+      phone: orderPayment?.phone,
+      streetAddress: orderPayment?.streetAddress,
+      city: orderPayment?.city,
+      state: orderPayment?.state,
+      zipCode: orderPayment?.zipCode,
+      country: orderPayment?.country
+    }
+    await updateCustomer(customerObj);
   };
 
   return (
+    
     <Box
       className="details"
       sx={{
@@ -138,6 +164,7 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
         },
       }}
     >
+      {isShowLoader && <Loader open={isShowLoader} setOpen={setIsShowLoader} />} 
       <div className="col-6 address-details">
         <div className="mb-4">
           <div className="sub-heading">
@@ -146,7 +173,7 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
           </div>
           <div>
             {showEmail ? <div className="row w-100 d-flex">
-              <div className="col-7 mb-2 ">
+              <div className="col-8 mb-2 ">
                 <FormControl sx={{ m: 1, width: "100%" }} size="small">
                   <Input
                     label="Email*"
@@ -172,7 +199,7 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
               </div>
             </div> : null}
             {showCode ? <div className="row d-flex">
-              <div className="col-7 mb-2 ">
+              <div className="col-8 mb-2 ">
                 <FormControl sx={{ m: 1, width: "100%" }} size="small">
                   <Input
                     label="Code*"
@@ -208,10 +235,10 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
                   <FormControl sx={{ m: 1, width: "100%" }} size="small">
                     <Input
                       label="First Name*"
-                      id="first_name"
-                      name="first_name"
+                      id="firstName"
+                      name="firstName"
                       control={control}
-                      error={errors.first_name?.message || ""}
+                      error={errors.firstName?.message || ""}
                       onChange={onInputChangeHandler}
                       value={orderPayment?.firstName}
                       disabled={disableFields}
@@ -222,10 +249,10 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
                   <FormControl sx={{ m: 1, width: "100%" }} size="small">
                     <Input
                       label="Last Name*"
-                      id="last_name"
-                      name="last_name"
+                      id="lastName"
+                      name="lastName"
                       control={control}
-                      error={errors.last_name?.message || ""}
+                      error={errors.lastName?.message || ""}
                       onChange={onInputChangeHandler}
                       value={orderPayment?.lastName}
                       disabled={disableFields}
@@ -239,10 +266,10 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
                   <FormControl sx={{ m: 1, width: "100%" }} size="small">
                     <Input
                       label="Street Address*"
-                      id="street_address"
-                      name="street_address"
+                      id="streetAddress"
+                      name="streetAddress"
                       control={control}
-                      error={errors.street_address?.message || ""}
+                      error={errors.streetAddress?.message || ""}
                       onChange={onInputChangeHandler}
                       value={orderPayment?.streetAddress}
                       disabled={disableFields}
@@ -265,7 +292,7 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
                     />
                   </FormControl>
                 </div>
-                <div className="col-6">
+                <div className="col-3">
                   <FormControl sx={{ m: 1, width: "100%" }} size="small">
                     <Input
                       label="State*"
@@ -279,19 +306,32 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
                     />
                   </FormControl>
                 </div>
-                
-              </div>
-              <div className="row d-flex">
-              <div className="col-6">
+                <div className="col-3">
                   <FormControl sx={{ m: 1, width: "100%" }} size="small">
                     <Input
                       label="Zip Code*"
-                      id="zip_code"
-                      name="zip_code"
+                      id="zipCode"
+                      name="zipCode"
                       control={control}
-                      error={errors.zip_code?.message || ""}
+                      error={errors.zipCode?.message || ""}
                       onChange={onInputChangeHandler}
                       value={orderPayment?.zipCode}
+                      disabled={disableFields}
+                    />
+                  </FormControl>
+                </div>
+              </div>
+              <div className="row d-flex">
+                <div className="col-6">
+                  <FormControl sx={{ m: 1, width: "100%" }} size="small">
+                    <Input
+                      label="Country*"
+                      id="country"
+                      name="country"
+                      control={control}
+                      error={errors.country?.message || ""}
+                      onChange={onInputChangeHandler}
+                      value={orderPayment?.country}
                       disabled={disableFields}
                     />
                   </FormControl>
@@ -305,7 +345,7 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
                       control={control}
                       error={errors.phone?.message || ""}
                       onChange={onInputChangeHandler}
-                      value={orderPayment?.phoneNo}
+                      value={orderPayment?.phone}
                       disabled={disableFields}
                     />
                   </FormControl>
@@ -332,9 +372,9 @@ const Details = ({ orderPayment, setOrderPayment }: DetailsProps) => {
                     <RadioInput
                       label="Payment Method"
                       id="payment-method"
-                      name="payment_method"
+                      name="paymentMethod"
                       control={control}
-                      error={errors?.payment_method?.message}
+                      error={errors?.paymentMethod?.message}
                       options={paymentMethodOptions}
                       disabled={disableFields}
                     />

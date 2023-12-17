@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ICart, IOrderPayment } from "../../interfaces";
+import { IOrderPayment } from "../../interfaces";
 import { useStore } from "../../store";
 import { ADD_TO_CART } from "../../store/actions";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import "./Checkout.scss";
 import CheckoutStepper from "./CheckoutStepper";
 import Details from "./Details";
 import Payment from "./Payment";
-import OrderSummary from "./OrderSummary";
 import OrderConfirmation from "./OrderConfirmation";
 
 const Checkout = () => {
@@ -26,14 +20,15 @@ const Checkout = () => {
   const [orderPayment, setOrderPayment] = useState<IOrderPayment>({
     firstName: "",
     lastName: "",
-    phoneNo: "",
+    phone: "",
     email: "",
     streetAddress: "",
     city: "",
     state: "",
     zipCode: "",
     deliveryNotes: "", 
-    cardNumber: ""
+    cardNumber: "",
+    country: ""
   });
   useEffect(() => {
     const cart = [
@@ -79,14 +74,6 @@ const Checkout = () => {
     ];
     dispatch({ type: ADD_TO_CART, payload: cart });
   }, []);
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string()
-      .min(8, "Password must be at least 8 characters")
-      .required("Password is required"),
-  });
 
   const handleNext = () => {
     setActiveStep((prevActiveStep: number) => prevActiveStep + 1);
@@ -96,20 +83,9 @@ const Checkout = () => {
     setActiveStep((prevActiveStep: number) => prevActiveStep - 1);
   };
 
-  const onInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    switch (e.target.name) {
-      case "email":
-        const val = e.target.value;
-
-        break;
-      default:
-        return;
-    }
-  };
   return (
     <div className="checkout">
-      <div className={` ${showCart ? "show-cart" : ""}`}>
-        <div className="">
+      <div className={` w-100 ${showCart ? "show-cart" : ""}`}>
           <div className="main-heading">
             <h2>Checkout</h2>
             {activeStep < 1 ? <h6>
@@ -127,7 +103,7 @@ const Checkout = () => {
           {activeStep === 1 && <Payment setOrderPayment={setOrderPayment} orderPayment={orderPayment} />}
           {activeStep === 2 && <OrderConfirmation />}
 
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+          {/* <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="inherit"
               disabled={activeStep === 0}
@@ -140,8 +116,7 @@ const Checkout = () => {
             <Button onClick={handleNext}>
               {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>
-          </Box>
-        </div>
+          </Box> */}
       </div>
     </div>
   );

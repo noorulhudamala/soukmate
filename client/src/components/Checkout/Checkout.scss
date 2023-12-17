@@ -1,6 +1,9 @@
 .checkout {
   min-height: 440px;
-  margin: 50px;
+  margin: 50px 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
   hr{
     border-color: unset;
     margin: 45px 0;
@@ -26,13 +29,18 @@
     margin: 20px 0px;
     .prod-img {
       img {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
+        border-radius: 5px;
       }
     }
   }
+  .address-details {
+    padding: 20px 40px 20px;
+  }
   .details {
-    padding-left: 100px;
+    display: flex;
+    justify-content: center;
     .main-heading {
       h2 {
         font-weight: bold;
@@ -45,8 +53,10 @@
     }
   }
   .order-summary {
-    margin: 0px 40px 20px;
+    padding: 20px 40px 20px;
     text-align: left;
+    background-color: black;
+    border-radius: 5px;
     .edit-btn {
       display: flex;
       justify-content: flex-end;
@@ -56,6 +66,10 @@
     h3 {
       font-weight: bold;
       font-size: 16px;
+      color: white !important;
+    }
+    h4, span {
+      color: white !important;
     }
   }
   .total-container {
@@ -76,6 +90,7 @@
     }
   }
   .sub-heading {
+    margin-bottom: 48px;
     h3 {
       font-weight: bold;
       font-size: 16px;
